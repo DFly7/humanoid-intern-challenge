@@ -1,0 +1,18 @@
+{
+  "platform": "macOS-26.3-arm64-arm-64bit",
+  "architecture": "arm64",
+  "python": "3.12.1",
+  "packages": {
+    "numpy": "2.2.6",
+    "torch": "2.7.1",
+    "mujoco": "3.2.7",
+    "robosuite": "1.4.1",
+    "lerobot": "0.4.3",
+    "imageio": "2.38.0"
+  },
+  "libero_commit": "8f1084e3132a39270c3a13ebe37270a43ece2a01",
+  "lerobot_commit": "0b067df57d21d3a02d6c511f1609172fa39ac29b",
+  "resolution": 128,
+  "source": "synthetic_fixture",
+  "collected_data": false
+}

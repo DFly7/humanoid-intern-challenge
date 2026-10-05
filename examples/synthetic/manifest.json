@@ -1,0 +1,22 @@
+{
+  "source": "synthetic_fixture",
+  "collected_by": "generated test fixture; not applicant data",
+  "split": "smoke",
+  "instruction": "Move the hand through a small planar loop (software smoke test only)",
+  "track": "track.csv",
+  "fps": 20,
+  "max_speed_m_s": 0.15,
+  "max_gap_s": 1.0,
+  "min_confidence": 0.8,
+  "calibration": {
+    "pixels": [[100,100],[500,100],[500,500],[100,500]],
+    "table_xy_m": [[0,0],[0.4,0],[0.4,0.4],[0,0.4]]
+  },
+  "robot_mapping": {
+    "yaw_rad": 0,
+    "offset_xy_m": [-0.1,-0.1],
+    "table_z_m": 0.8,
+    "workspace_min": [-0.3,-0.3,0.81],
+    "workspace_max": [0.3,0.3,1.3]
+  }
+}

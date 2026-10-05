@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Phone manipulation annotation</title>
+<style>
+body{font:16px system-ui;max-width:1000px;margin:30px auto;padding:0 20px;background:#f7f8fa;color:#202631}
+button,input{font:inherit;margin:5px;padding:7px}canvas{width:100%;background:#111;cursor:crosshair}
+video{width:100%}table{width:100%;text-align:left}td,th{padding:4px}p{line-height:1.5}
+</style>
+<h1>Annotate your phone recording</h1>
+<p>The file stays in your browser. Use a fixed camera and visible table corners. Pause at each
+waypoint, then click the grasp centre on the image. Pixel coordinates use the original video size.
+Add points before and after contact, and at least once per second. Height is a manual estimate
+above the table: a single planar camera does not measure depth.</p>
+<input id="file" type="file" accept="video/*">
+<video id="video" controls muted playsinline></video>
+<div>
+<button id="back">−0.1 s</button><button id="next">+0.1 s</button>
+<label>Height (m)<input id="height" type="number" min="0" step="0.01" value="0.10"></label>
+<label>Gripper <select id="grip"><option value="-1">Open</option><option value="1">Closed</option></select></label>
+<label>Confidence<input id="confidence" type="number" min="0" max="1" step="0.1" value="1"></label>
+</div>
+<canvas id="canvas"></canvas>
+<p id="status">Load a recording, pause, and click a waypoint.</p>
+<button id="download">Download track.csv</button><button id="undo">Undo last click</button>
+<table><thead><tr><th>Time</th><th>u, v pixels</th><th>Height</th><th>Gripper</th><th>Confidence</th></tr></thead><tbody id="rows"></tbody></table>
+<script>
+const video=document.querySelector('#video'), canvas=document.querySelector('#canvas');
+const context=canvas.getContext('2d'), points=[]; let videoURL;
+const get=id=>document.getElementById(id);
+get('file').onchange=()=>{if(videoURL) URL.revokeObjectURL(videoURL);points.length=0;render();
+ videoURL=URL.createObjectURL(get('file').files[0]);video.src=videoURL;};
+function draw(){if(video.readyState>=2){canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+ context.drawImage(video,0,0);for(const p of points.filter(p=>Math.abs(p[0]-video.currentTime)<0.08)){
+ context.beginPath();context.arc(p[1],p[2],10,0,Math.PI*2);context.strokeStyle='#00ff99';context.lineWidth=3;context.stroke();}}}
+video.onseeked=draw;video.onloadeddata=draw;video.onpause=draw;
+get('back').onclick=()=>{video.pause();video.currentTime=Math.max(0,video.currentTime-0.1);};
+get('next').onclick=()=>{video.pause();video.currentTime=Math.min(video.duration,video.currentTime+0.1);};
+canvas.onclick=e=>{if(video.readyState<2)return;video.pause();const r=canvas.getBoundingClientRect();
+ const time=Number(video.currentTime.toFixed(4));
+ if(points.some(p=>p[0]===time)){get('status').textContent='This timestamp already has a point. Undo it or move the video.';return;}
+ const p=[time,Math.round((e.clientX-r.left)*canvas.width/r.width),Math.round((e.clientY-r.top)*canvas.height/r.height),
+ Number(get('height').value),Number(get('grip').value),Number(get('confidence').value)];
+ if(!p.every(Number.isFinite)||p[3]<0||p[5]<0||p[5]>1)return;
+ points.push(p);get('status').textContent=`Saved point at ${time}s; pixel (${p[1]}, ${p[2]}).`;render();draw();};
+function render(){get('rows').replaceChildren();for(const p of [...points].sort((a,b)=>a[0]-b[0])){
+ const row=document.createElement('tr');for(const value of [p[0],`${p[1]}, ${p[2]}`,p[3],p[4],p[5]]){
+ const td=document.createElement('td');td.textContent=value;row.appendChild(td);}get('rows').appendChild(row);}}
+get('undo').onclick=()=>{points.pop();render();draw();};
+get('download').onclick=()=>{if(points.length<2){get('status').textContent='Annotate at least two points first.';return;}
+ const csv='time_s,u_px,v_px,height_m,gripper,confidence\n'+[...points].sort((a,b)=>a[0]-b[0]).map(p=>p.join(',')).join('\n')+'\n';
+ const url=URL.createObjectURL(new Blob([csv],{type:'text/csv'})),a=document.createElement('a');
+ a.href=url;a.download='track.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+</script>
+</html>

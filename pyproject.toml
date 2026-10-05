@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "humanoid-intern-challenge"
+version = "0.1.0"
+description = "Auditable phone-to-Panda retargeting and SmolVLA experiments"
+requires-python = ">=3.10"
+dependencies = ["numpy>=2.0,<2.3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "ruff>=0.11,<1"]
+sim = ["robosuite==1.4.1", "mujoco==3.2.7", "torch==2.7.1", "bddl==1.0.1", "future>=1,<2", "easydict==1.13", "opencv-python-headless==4.10.0.84", "h5py>=3.10,<4", "imageio[ffmpeg]>=2.34,<3", "pyyaml>=6,<7", "matplotlib>=3.8,<4", "cloudpickle>=3,<4", "gym==0.26.2"]
+ml = ["lerobot[smolvla] @ git+https://github.com/huggingface/lerobot.git@0b067df57d21d3a02d6c511f1609172fa39ac29b", "opencv-python-headless==4.10.0.84"]
+
+[project.scripts]
+humanoid = "humanoid_challenge.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/humanoid_challenge"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

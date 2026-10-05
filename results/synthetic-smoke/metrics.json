@@ -1,0 +1,93 @@
+{
+  "suite": "libero_goal",
+  "task_id": 0,
+  "init_id": 0,
+  "seed": 0,
+  "instruction": "open the middle drawer of the cabinet",
+  "success": false,
+  "steps": 51,
+  "fps": 20,
+  "policy": "phone_path_tracking",
+  "tracking_error_mean_m": 0.05879600807741661,
+  "tracking_error_max_m": 0.24249129593868415,
+  "action_latency_p50_ms": 0.037917001463938504,
+  "action_latency_p95_ms": 0.04841650115849916,
+  "elapsed_s": 9.336427207999805,
+  "trajectory_sha256": "bffb9a1b31f5164901455522923074636c39aa9337289bceabc9fe70dcbd59f6",
+  "provenance": {
+    "manifest_sha256": "224df102ac7ee7c41fd8aca0de6907f88886dfe5fd47bef681759be828f99b5b",
+    "manifest": {
+      "source": "synthetic_fixture",
+      "collected_by": "generated test fixture; not applicant data",
+      "split": "smoke",
+      "instruction": "Move the hand through a small planar loop (software smoke test only)",
+      "track": "track.csv",
+      "fps": 20,
+      "max_speed_m_s": 0.15,
+      "max_gap_s": 1.0,
+      "min_confidence": 0.8,
+      "calibration": {
+        "pixels": [
+          [
+            100,
+            100
+          ],
+          [
+            500,
+            100
+          ],
+          [
+            500,
+            500
+          ],
+          [
+            100,
+            500
+          ]
+        ],
+        "table_xy_m": [
+          [
+            0,
+            0
+          ],
+          [
+            0.4,
+            0
+          ],
+          [
+            0.4,
+            0.4
+          ],
+          [
+            0,
+            0.4
+          ]
+        ]
+      },
+      "robot_mapping": {
+        "yaw_rad": 0,
+        "offset_xy_m": [
+          -0.1,
+          -0.1
+        ],
+        "table_z_m": 0.8,
+        "workspace_min": [
+          -0.3,
+          -0.3,
+          0.81
+        ],
+        "workspace_max": [
+          0.3,
+          0.3,
+          1.3
+        ]
+      }
+    },
+    "track_sha256": "8839ba6c802a4e75e6ed22a9f091842d329702cf6f4b2cae3c96d00d7620ea68",
+    "fps": 20,
+    "input_duration_s": 2.5,
+    "retimed_duration_s": 2.5,
+    "frames": 51
+  },
+  "note": "Tracking error compares to the supplied path; success is LIBERO's predicate."
+}
