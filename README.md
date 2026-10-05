@@ -169,4 +169,3 @@ Upstream references: [LIBERO](https://github.com/Lifelong-Robot-Learning/LIBERO)
 [LeRobot 0.4.3](https://github.com/huggingface/lerobot/tree/0b067df57d21d3a02d6c511f1609172fa39ac29b),
 [SmolVLA guide](https://huggingface.co/docs/lerobot/smolvla),
 [base checkpoint](https://huggingface.co/lerobot/smolvla_base).
-

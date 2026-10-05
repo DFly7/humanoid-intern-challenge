@@ -68,4 +68,3 @@ are not verified.
 The pretrained SmolVLA config describes a different camera/state layout. The training script
 clears its input features so LeRobot derives this dataset's two cameras and 9D state.
 No GPU training run has verified the full adaptation/inference path yet.
-

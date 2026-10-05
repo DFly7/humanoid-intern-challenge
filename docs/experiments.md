@@ -57,4 +57,3 @@ There is no learned world model or RL improvement in this initial project. There
 personally collected recordings or trained weights in the initial commit. Dataset export and
 SmolVLA adaptation require those recordings and successful retargeted episodes first. A local
 synthetic simulation smoke test is useful software evidence and cannot satisfy the challenge.
-

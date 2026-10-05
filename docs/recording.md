@@ -98,4 +98,3 @@ it as part of the retargeting teacher; the trained VLA receives images, robot po
 Run `humanoid prepare` for each manifest. The sidecar records source hashes, parameters, and
 retimed duration so another person can trace each demonstration back to its original video.
 Hashes support traceability; they are not proof of who collected a recording.
-
